@@ -1,67 +1,125 @@
-#include <TheThingsNetwork.h>
+ /* Connect the RN2xx3 as follows:
+ * RN2xx3 -- Arduino
+ * Uart TX -- 10
+ * Uart RX -- 11
+ * Reset -- 12
+ * Vcc -- 3.3V
+ * Gnd -- Gnd
+ */
+ 
+#include <rn2xx3.h>
+#include <SoftwareSerial.h>
 
-// Set your AppEUI and AppKey
-const char *appEui = "70B3D57ED0025AEB";
-const char *appKey = "0D518E5463B1F54758E6BAF2E3F51BA4";
+SoftwareSerial mySerial(10, 11); // RX, TX
 
-#define loraSerial Serial1
-#define debugSerial Serial
+//create an instance of the rn2xx3 library,
+//giving the software serial as port to use
+rn2xx3 myLora(mySerial);
 
-// Replace REPLACE_ME with TTN_FP_EU868 or TTN_FP_US915
-#define freqPlan TTN_FP_EU868
-
-TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);
-
+// the setup routine runs once when you press reset:
 void setup()
 {
-  loraSerial.begin(57600);
-  debugSerial.begin(9600);
+  //output LED pin
+  pinMode(13, OUTPUT);
+  led_on();
 
-  // Wait a maximum of 10s for Serial Monitor
-  while (!debugSerial && millis() < 10000);
+  // Open serial communications and wait for port to open:
+  Serial.begin(57600); //serial port to computer
+  mySerial.begin(9600); //serial port to radio
+  Serial.println("Startup");
 
-  // Set callback for incoming messages
-  ttn.onMessage(message);
+  initialize_radio();
 
-  debugSerial.println("-- STATUS");
-  ttn.showStatus();
+  //transmit a startup message
+  myLora.tx("TTN Mapper on TTN Enschede node");
 
-  debugSerial.println("-- JOIN");
-  ttn.join(appEui, appKey);
+  led_off();
+  delay(2000);
 }
 
+void initialize_radio()
+{
+  //reset rn2483
+  pinMode(12, OUTPUT);
+  digitalWrite(12, LOW);
+  delay(500);
+  digitalWrite(12, HIGH);
+
+  delay(100); //wait for the RN2xx3's startup message
+  mySerial.flush();
+
+  //Autobaud the rn2483 module to 9600. The default would otherwise be 57600.
+  myLora.autobaud();
+
+  //check communication with radio
+  String hweui = myLora.hweui();
+  while(hweui.length() != 16)
+  {
+    Serial.println("Communication with RN2xx3 unsuccessful. Power cycle the board.");
+    Serial.println(hweui);
+    delay(10000);
+    hweui = myLora.hweui();
+  }
+
+  //print out the HWEUI so that we can register it via ttnctl
+  Serial.println("When using OTAA, register this DevEUI: ");
+  Serial.println(myLora.hweui());
+  Serial.println("RN2xx3 firmware version:");
+  Serial.println(myLora.sysver());
+
+  //configure your keys and join the network
+  Serial.println("Trying to join TTN");
+  bool join_result = false;
+
+
+  /*
+   * ABP: initABP(String addr, String AppSKey, String NwkSKey);
+   * Paste the example code from the TTN console here:
+   */
+  //const char *devAddr = "02017201";
+  //const char *nwkSKey = "AE17E567AECC8787F749A62F5541D522";
+  //const char *appSKey = "8D7FFEF938589D95AAD928C2E2E7E48F";
+
+  //join_result = myLora.initABP(devAddr, appSKey, nwkSKey);
+
+  /*
+   * OTAA: initOTAA(String AppEUI, String AppKey);
+   * If you are using OTAA, paste the example code from the TTN console here:
+   */
+  const char *appEui = "70B3D57ED0025AEB";
+  const char *appKey = "0D518E5463B1F54758E6BAF2E3F51BA4";
+
+  join_result = myLora.initOTAA(appEui, appKey);
+
+
+  while(!join_result)
+  {
+    Serial.println("Unable to join. Are your keys correct, and do you have TTN coverage?");
+    delay(60000); //delay a minute before retry
+    join_result = myLora.init();
+  }
+  Serial.println("Successfully joined TTN");
+
+}
+
+// the loop routine runs over and over again forever:
 void loop()
 {
-  debugSerial.println("-- LOOP");
+    led_on();
 
-  // Prepare payload of 1 byte to indicate LED status
-  byte payload[1];
-  payload[0] = (digitalRead(LED_BUILTIN) == HIGH) ? 1 : 0;
+    Serial.println("TXing");
+    myLora.tx("!"); //one byte, blocking function
 
-  // Send it off
-  ttn.sendBytes(payload, sizeof(payload));
-
-  delay(10000);
+    led_off();
+    delay(200);
 }
 
-void message(const byte *payload, size_t length, port_t port)
+void led_on()
 {
-  debugSerial.println("-- MESSAGE");
+  digitalWrite(13, 1);
+}
 
-  // Only handle messages of a single byte
-  if (length != 1)
-  {
-    return;
-  }
-
-  if (payload[0] == 0)
-  {
-    debugSerial.println("LED: off");
-    digitalWrite(LED_BUILTIN, LOW);
-  }
-  else if (payload[0] == 1)
-  {
-    debugSerial.println("LED: on");
-    digitalWrite(LED_BUILTIN, HIGH);
-  }
+void led_off()
+{
+  digitalWrite(13, 0);
 }
