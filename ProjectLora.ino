@@ -12,6 +12,9 @@
 
 SoftwareSerial mySerial(10, 11); // RX, TX
 
+// Define sensor pin
+#define sensorPin A0
+
 //create an instance of the rn2xx3 library,
 //giving the software serial as port to use
 rn2xx3 myLora(mySerial);
@@ -22,6 +25,9 @@ void setup()
   //output LED pin
   pinMode(13, OUTPUT);
   led_on();
+
+  //input sensor pin
+  pinMode(sensorPin, INPUT);
 
   // Open serial communications and wait for port to open:
   Serial.begin(57600); //serial port to computer
@@ -76,20 +82,21 @@ void initialize_radio()
    * ABP: initABP(String addr, String AppSKey, String NwkSKey);
    * Paste the example code from the TTN console here:
    */
-  //const char *devAddr = "02017201";
-  //const char *nwkSKey = "AE17E567AECC8787F749A62F5541D522";
-  //const char *appSKey = "8D7FFEF938589D95AAD928C2E2E7E48F";
+  const char *devAddr = "26011816";
+  const char *nwkSKey = "47886652FC641E7AADD3DFD40041AB0E";
+  const char *appSKey = "48594DB1F56E07C45049B477ECF9CFF8";
 
-  //join_result = myLora.initABP(devAddr, appSKey, nwkSKey);
+  join_result = myLora.initABP(devAddr, appSKey, nwkSKey);
 
   /*
    * OTAA: initOTAA(String AppEUI, String AppKey);
    * If you are using OTAA, paste the example code from the TTN console here:
    */
-  const char *appEui = "70B3D57ED0025AEB";
-  const char *appKey = "0D518E5463B1F54758E6BAF2E3F51BA4";
+  //const char *devEui = "0004A30B00E94D4E";
+  //const char *appEui = "70B3D57ED0025AEB";
+  //const char *appKey = "0D518E5463B1F54758E6BAF2E3F51BA4";
 
-  join_result = myLora.initOTAA(appEui, appKey);
+  //join_result = myLora.initOTAA(appEui, appKey, devEui);
 
 
   while(!join_result)
@@ -107,11 +114,19 @@ void loop()
 {
     led_on();
 
-    Serial.println("TXing");
-    myLora.tx("!"); //one byte, blocking function
+    int value = analogRead(sensorPin);
 
+    char str[2];
+    str[0] = (value >> 8) & 0xFF;
+    str[1] = value & 0xFF;
+
+    Serial.print("Send sensor value : ");
+    Serial.println(value);
+ 
+    myLora.txBytes(str, sizeof(str));
+    
     led_off();
-    delay(200);
+    delay(2000);
 }
 
 void led_on()
