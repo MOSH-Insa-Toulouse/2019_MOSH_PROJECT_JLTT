@@ -1,3 +1,12 @@
+ /*
+  * Contributors :
+  * Théo Zanchi 
+  * Jérémy Turi
+  * Loan Revardel
+  * Thomas Lautrédou
+  *
+  */
+ 
  /* Connect the RN2xx3 as follows:
  * RN2xx3 -- Arduino
  * Uart TX -- 10
@@ -15,10 +24,24 @@ SoftwareSerial mySerial(10, 11); // RX, TX
 // Define sensor pin
 #define sensorPin A0
 #define gasSensorPin A1
+#define buzzerPin 2
+
+
+//Threshold to trigger on the alarm buzzer or turn it off
+#define THRESHOLD_HIGH 1.1
+#define THRESHOLD_LOW  0.9
+
 
 //create an instance of the rn2xx3 library,
 //giving the software serial as port to use
 rn2xx3 myLora(mySerial);
+
+typedef enum
+{
+  IDLE_STATE, ALARM, MEASURE_VALUE
+} T_State;
+
+T_State myState;
 
 // the setup routine runs once when you press reset:
 void setup()
@@ -115,29 +138,29 @@ void initialize_radio()
 // the loop routine runs over and over again forever:
 void loop()
 {
-    led_on();
+  /*
+   *Jérémy Turi
+   *18 November 2019
+   *Proposition of State Machine
+   */
+
+   /*Sleep(x:ms);
+   valueGasSensor = analogRead(gasSensorPin);
+   if(state == MEASURE_VALUE && valueGasSensor < threshold_Low)
+   {
+      buzzer_on()
+      state = ALARM;
+   }
+   if(state == ALARM && valueGasSensor> threshold_High)
+   {
+      buzzer_off();
+   }
+   sendValue(valueGasSensor)*/
 
     int value = analogRead(sensorPin);
     delay(100);
     int valueGasSensor = analogRead(gasSensorPin);
-
-    char str[4];
-    str[0] = (value >> 8) & 0xFF;
-    str[1] = value & 0xFF;
-    str[2] = (valueGasSensor >> 8) & 0xFF;
-    str[3] = valueGasSensor & 0xFF;
-
-    Serial.print("Send sensor value : ");
-    Serial.println(value);
-    Serial.print("Gas Value : ");
-    Serial.println(valueGasSensor);
-    Serial.print("Rs/RL = ");
-    Serial.println((float) (1023-valueGasSensor)/valueGasSensor);
- 
-    myLora.txBytes(str, sizeof(str));
-    
-    led_off();
-    delay(2000);
+    sendValueGasSensor(value, valueGasSensor);
 }
 
 void led_on()
@@ -148,4 +171,37 @@ void led_on()
 void led_off()
 {
   digitalWrite(13, 0);
+}
+
+void sendValueGasSensor(int value, int v_gasSensor)
+{
+    led_on();
+    
+    char str[4];
+    str[0] = (value >> 8) & 0xFF;
+    str[1] = value & 0xFF;
+    str[2] = (v_gasSensor >> 8) & 0xFF;
+    str[3] = (v_gasSensor & 0xFF);
+
+    Serial.print("Send sensor value : ");
+    Serial.println(value);
+    Serial.print("Gas Value : ");
+    Serial.println(v_gasSensor);
+    Serial.print("Rs/RL = ");
+    Serial.println((float) (1023-v_gasSensor)/v_gasSensor);
+ 
+    myLora.txBytes(str, sizeof(str));
+    
+    led_off();
+    delay(2000);
+}
+
+void buzzer_on()
+{
+  digitalWrite(buzzerPin, HIGH);
+}
+
+void buzzer_off()
+{
+  digitalWrite(buzzerPin, LOW);
 }
