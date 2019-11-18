@@ -14,6 +14,7 @@ SoftwareSerial mySerial(10, 11); // RX, TX
 
 // Define sensor pin
 #define sensorPin A0
+#define gasSensorPin A1
 
 //create an instance of the rn2xx3 library,
 //giving the software serial as port to use
@@ -26,8 +27,10 @@ void setup()
   pinMode(13, OUTPUT);
   led_on();
 
-  //input sensor pin
+  //input sensor pin : potentiometer
   pinMode(sensorPin, INPUT);
+  //input for GasSensor
+  pinMode(gasSensorPin, INPUT);
 
   // Open serial communications and wait for port to open:
   Serial.begin(57600); //serial port to computer
@@ -115,13 +118,21 @@ void loop()
     led_on();
 
     int value = analogRead(sensorPin);
+    delay(100);
+    int valueGasSensor = analogRead(gasSensorPin);
 
-    char str[2];
+    char str[4];
     str[0] = (value >> 8) & 0xFF;
     str[1] = value & 0xFF;
+    str[2] = (valueGasSensor >> 8) & 0xFF;
+    str[3] = valueGasSensor & 0xFF;
 
     Serial.print("Send sensor value : ");
     Serial.println(value);
+    Serial.print("Gas Value : ");
+    Serial.println(valueGasSensor);
+    Serial.print("Rs/RL = ");
+    Serial.println((float) (1023-valueGasSensor)/valueGasSensor);
  
     myLora.txBytes(str, sizeof(str));
     
