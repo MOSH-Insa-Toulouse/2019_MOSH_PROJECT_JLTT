@@ -14,7 +14,22 @@ This repository contains :
 <li>A <strong>Node-RED dashboard</strong> to display datas retrieved from the gas sensor (using <a href="https://nodered.org/">Node-RED</a>)</li>
 </ul>
 
-Conso : 355mA (fonctionnement normal) et 370mA (fonctionnement en émission)
+# Overall presentation of the components
+The goal of the project was to develop a prototype able to detect high dangerous gas concentration in a specific area. In this situation, a siren is triggered to alert people and avoid casualties. 
 
-Il faut mettre un Nmos en Not Gate => Quand y'a un 0 le transistor est ouvert et le gaz sensor est relié à Vdd grâce à la résistance de pull-up, et quand on met 1 le transistor est passant et donc la tension aux bornes du Gaz sensor est amenée à 0. 
+To do so, we used :
+<ul>
+<li><a href="https://store.arduino.cc/arduino-uno-rev3">Arduino Uno Board</a></li>
+<li><a href="https://www.microchip.com/wwwproducts/en/RN2483">LoRa chip RN2483A</a></li>
+</ul>
+
+
+
+
+
+
+
+<!-- Conso : 355mA (fonctionnement normal) et 370mA (fonctionnement en émission)
+
+Il faut mettre un Nmos en Not Gate => Quand y'a un 0 le transistor est ouvert et le gaz sensor est relié à Vdd grâce à la résistance de pull-up, et quand on met 1 le transistor est passant et donc la tension aux bornes du Gaz sensor est amenée à 0. -->
 
