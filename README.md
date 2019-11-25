@@ -9,8 +9,7 @@ This project was carried out as part of ISS (Innovative Smart Systems) 5th year 
 
 This repository contains : 
 <ul>
-<li><strong>KiCad files</strong> : We developed a shield for the gas sensor compatible with Arduino Uno (using Rendez-vous sur le <a href="http://www.siteduzero.com">Site du Zéro</a> pour tout apprendre à partir de Zéro !
-)</li>
+<li><strong>KiCad files</strong> : We developed a shield for the gas sensor compatible with Arduino Uno (using <a href="http://www.siteduzero.com">KiCad</a></li>
 <li><strong>Arduino SW files</strong></li>
 <li>A <strong>Node-RED dashboard</strong> to display datas retrieved from the gas sensor</li>
 </ul>
