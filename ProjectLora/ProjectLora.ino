@@ -21,6 +21,7 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/wdt.h>
+#include <LowPower.h>
 
 volatile int f_wdt=1;
 
@@ -54,23 +55,6 @@ void setup()
   //output LED pin
   pinMode(13, OUTPUT);
   led_on();
-
-    /*** Setup the WDT ***/
-   /* Clear the reset flag. */
-   MCUSR &= ~(1<<WDRF);
-   /* In order to change WDE or the prescaler, we need to
-    * set WDCE (This will allow updates for 4 clock cycles).
-    */
-   WDTCSR |= (1<<WDCE) | (1<<WDE);
-   /* set new watchdog timeout prescaler value */
-   WDTCSR = 1<<WDP0 | 1<<WDP3; /* 8.0 seconds */
-   /* Enable the WD interrupt (note no reset). */
-   WDTCSR |= _BV(WDIE);
-   Serial.println("Initialisation complete.");
-   delay(100); //Allow for serial print to complete.
-   attachInterrupt(0, pin2Interrupt, CHANGE);
-   Serial.println("Interrup attached.");
-   delay(200);
 
   //input sensor pin : potentiometer
   pinMode(sensorPin, INPUT);
@@ -179,36 +163,12 @@ void loop()
    }
    sendValue(valueGasSensor)*/
 
-    if(f_wdt == 1)
-    {
      int value = analogRead(sensorPin);
-      delay(100);
-      int valueGasSensor = analogRead(gasSensorPin);
-      sendValueGasSensor(value, valueGasSensor);
-     
-     /* Don't forget to clear the flag. */
-     f_wdt = 0;
-     
-     Serial.println("enterring sleep mode.");
-     delay(200);
+     delay(100);
+     int valueGasSensor = analogRead(gasSensorPin);
+     sendValueGasSensor(value, valueGasSensor);
 
-     //myLora.sleep(10000);
-     //delay(200);
-  
-     /* Re-enter sleep mode. */
-     enterSleep();
-
-     //digitalWrite(10, LOW);
-     //delay(1);
-     //myLora.wake();
-  
-     Serial.println("outging from sleep mode.");
-     delay(200);
-   }
-   else
-   {
-     /* Do nothing. */
-   }
+     LowPower.idle(SLEEP_8S, ADC_OFF, TIMER2_OFF, TIMER1_OFF, TIMER0_OFF, SPI_OFF, USART0_OFF, TWI_OFF);
 }
 
 void led_on()
@@ -252,56 +212,4 @@ void buzzer_on()
 void buzzer_off()
 {
   digitalWrite(buzzerPin, LOW);
-}
-
-//***************************************************
-void pin2Interrupt(void)
-{
- cli();
- sleep_disable(); /* First thing to do is disable sleep. */
- power_all_enable();
- //if(f_wdt == 0) {f_wdt=1;}
- delay(200);
- Serial.println("wakeUp Interrupt ...");
- delay(200);
- //detachInterrupt(0);
- //digitalWrite(LED_PIN, !digitalRead(LED_PIN));
- sei();
-}
-
-/***************************************************
-*  Name:        ISR(WDT_vect)
-*  Returns:     Nothing.
-*  Parameters:  None.
-*  Description: Watchdog Interrupt Service. This
-*               is executed when watchdog timed out.
-*
-***************************************************/
-ISR(WDT_vect)
-{
- if(f_wdt == 0) {f_wdt=1;}
- else
- {
-   Serial.println("WDT Overrun!!!");
- }
-}
-
-/***************************************************
-*  Name:        enterSleep
-*  Returns:     Nothing.
-*  Parameters:  None.
-*  Description: Enters the arduino into sleep mode.
-*
-***************************************************/
-void enterSleep(void)
-{
- //set_sleep_mode(SLEEP_MODE_PWR_SAVE);   /* EDIT: could also use SLEEP_MODE_PWR_DOWN for lowest power consumption. */
- set_sleep_mode(SLEEP_MODE_PWR_DOWN);
- sleep_enable();
- /* Now enter sleep mode. */
- sleep_mode();
- /* The program will continue from here after the WDT timeout*/
- sleep_disable(); /* First thing to do is disable sleep. */
- /* Re-enable the peripherals. */
- power_all_enable();
 }
