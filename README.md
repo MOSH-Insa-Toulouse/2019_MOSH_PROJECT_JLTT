@@ -26,7 +26,7 @@ To do so, we used :
 <li>A transistor <a href="http://www.vishay.com/docs/91291/91291.pdf">IRFZ44</a></li>
 </ul>
 
-<img src="C:\Users\thoma\Desktop\Thomas\INSA\5eme_Annee\MOSH_project\2019_MOSH_PROJECT_JLTT\Images" alt="Global_prototype">
+![](./Images/Montage_total.jpg)
 
 
 
