@@ -10,7 +10,7 @@ This project was carried out as part of ISS (Innovative Smart Systems) 5th year 
 This repository contains : 
 <ul>
 <li><strong>KiCad files</strong> : We developed a shield for the gas sensor compatible with Arduino Uno (using <a href="http://kicad-pcb.org/">KiCad</a>) </li>
-<li><strong>Arduino SW files</strong></li>
+<li><strong>Arduino SW files</strong> : The source code we implemented on the microcontroller <a href="https://fr.rs-online.com/web/p/products/7589339?cm_mmc=FR-PLA-DS3A-_-google-_-CSS_FR_FR_(FR:Whoop!)+Semi-conducteurs_Control-_-(FR:Whoop!)+Kits+de+d%C3%A9veloppement+pour+processeurs+et+microcontr%C3%B4leurs-_-PRODUCT_GROUP&matchtype=&pla-391040009911&gclid=CjwKCAiAlO7uBRANEiwA_vXQ-7CN3iR2N3csU5tjIIjQNIGa3bsX8twG7D_S9v6flhEkI08b6nLumxoCnKcQAvD_BwE&gclsrc=aw.ds"> ATMEGA328 </a> (using <a href="https://www.arduino.cc/">Arduino IDE</a>)</li>
 <li>A <strong>Node-RED dashboard</strong> to display datas retrieved from the gas sensor</li>
 </ul>
 
