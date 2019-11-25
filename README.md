@@ -14,14 +14,19 @@ This repository contains :
 <li>A <strong>Node-RED dashboard</strong> to display datas retrieved from the gas sensor (using <a href="https://nodered.org/">Node-RED</a>)</li>
 </ul>
 
-# Overall presentation of the components
+# Overall components presentation
 The goal of the project was to develop a prototype able to detect high dangerous gas concentration in a specific area. In this situation, a siren is triggered to alert people and avoid casualties. 
 
 To do so, we used :
 <ul>
-<li><a href="https://store.arduino.cc/arduino-uno-rev3">Arduino Uno Board</a></li>
-<li><a href="https://www.microchip.com/wwwproducts/en/RN2483">LoRa chip RN2483A</a></li>
+<li>A <a href="https://store.arduino.cc/arduino-uno-rev3">Arduino Uno Board</a></li>
+<li>A LoRa chip <a href="https://www.microchip.com/wwwproducts/en/RN2483">RN2483A</a></li>
+<li>A <a href="http://wiki.seeedstudio.com/Grove-Gas_Sensor-MQ9/">Grove Gas Sensor (MQ9)</a></li>
+<li>A potentiometer</li>
+<li>A transistor <a href="http://www.vishay.com/docs/91291/91291.pdf">IRFZ44</a></li>
 </ul>
+
+<img src="C:\Users\thoma\Desktop\Thomas\INSA\5eme_Annee\MOSH_project\2019_MOSH_PROJECT_JLTT\Images" alt="Global_prototype">
 
 
 
