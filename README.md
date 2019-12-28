@@ -23,7 +23,7 @@ During the MOSH module, we choose to realize the smart device project. This proj
 
 The smart device we created is able to collect data from a gas sensor (ideally the one created at AIME but we only tested with a groove MQ9 gas sensor) and send these data to the LoRa TTN gateway on the INSA’s rooftop. On the following figure, you can find a picture of our prototype:
 
-![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_Wiring.PNG "JLTT_Wiring")
+![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_Wiring.jpg "JLTT_Wiring")
 
 ### Dashboard
 
@@ -31,7 +31,7 @@ Then after creating a TTN application and registering our device, we used a ttn 
 
 ![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_NodeRed.PNG "JLTT_NodeRed")
 
-![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_Dashboard.PNG "JLTT_Dashboard")
+![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_Dashboard.png "JLTT_Dashboard")
 
 ### Energy consumption
 
@@ -55,7 +55,7 @@ After the schematics design, we exported the net file and realized the PCB routi
 
 Finally, we exported a 3d representation of our shield thanks to KiCad:
 
-![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_3D_View.PNG "JLTT_3D_View")
+![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_3D_View.png "JLTT_3D_View")
 
 ## Conclusion
 
