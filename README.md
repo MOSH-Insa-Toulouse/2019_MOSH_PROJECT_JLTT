@@ -26,7 +26,7 @@ To do so, we used :
 <li>A transistor <a href="http://www.vishay.com/docs/91291/91291.pdf">IRFZ44</a></li>
 </ul>
 
-![](./Images/Montage_total.jpg)
+![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_Wiring.jpg "JLTT_Wiring")
 
 
 ### Dashboard
