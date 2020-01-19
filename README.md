@@ -5,25 +5,29 @@
 
 This project was carried out as part of ISS (Innovative Smart Systems) 5th year at INSA Toulouse. The objective was to develop a gas sensor able to detect dangerous gases for human beings and communicating datas via Lora. Then, using the Node-RED software, we retrieved the data and displayed it on a graphical interface that the user could understand. As soon as a dangerous gas is detected, a buzzer is triggered to warn the user and avoid potential casualties. 
 
-## Content of the Project
+# Content of the Project
 
 This repository contains : 
 <ul>
-<li><strong>KiCad files</strong> : We developed a shield for the gas sensor compatible with Arduino Uno (using [KiCad](http://kicad-pcb.org/))</li>
-<li><strong>Arduino SW files</strong></li>
-<li>A <strong>Node-RED dashboard</strong> to display datas retrieved from the gas sensor</li>
-<li><strong>LT Spice files</strong> with which we tested our adapter circuit for the gas sensor</li>
+<li><strong>KiCad files</strong> : We developed a shield for the gas sensor compatible with Arduino Uno (using <a href="http://kicad-pcb.org/">KiCad</a>) </li>
+<li><strong>Arduino SW files</strong> : The source code we implemented on the microcontroller <a href="https://fr.rs-online.com/web/p/products/7589339?cm_mmc=FR-PLA-DS3A-_-google-_-CSS_FR_FR_(FR:Whoop!)+Semi-conducteurs_Control-_-(FR:Whoop!)+Kits+de+d%C3%A9veloppement+pour+processeurs+et+microcontr%C3%B4leurs-_-PRODUCT_GROUP&matchtype=&pla-391040009911&gclid=CjwKCAiAlO7uBRANEiwA_vXQ-7CN3iR2N3csU5tjIIjQNIGa3bsX8twG7D_S9v6flhEkI08b6nLumxoCnKcQAvD_BwE&gclsrc=aw.ds"> ATMEGA328 </a> (using <a href="https://www.arduino.cc/">Arduino IDE</a>)</li>
+<li>A <strong>Node-RED dashboard</strong> to display datas retrieved from the gas sensor (using <a href="https://nodered.org/">Node-RED</a>)</li>
 </ul>
 
-## MOSH
+# Overall components presentation
+The goal of the project was to develop a prototype able to detect high dangerous gas concentration in a specific area. In this situation, a siren is triggered to alert people and avoid casualties. 
 
-During the MOSH module, we choose to realize the smart device project. This project was about gas sensor data collecting. 
+To do so, we used :
+<ul>
+<li>A <a href="https://store.arduino.cc/arduino-uno-rev3">Arduino Uno Board</a></li>
+<li>A LoRa chip <a href="https://www.microchip.com/wwwproducts/en/RN2483">RN2483A</a></li>
+<li>A <a href="http://wiki.seeedstudio.com/Grove-Gas_Sensor-MQ9/">Grove Gas Sensor (MQ9)</a></li>
+<li>A potentiometer</li>
+<li>A transistor <a href="http://www.vishay.com/docs/91291/91291.pdf">IRFZ44</a></li>
+</ul>
 
-### Prototype
+![](./Images/Montage_total.jpg)
 
-The smart device we created is able to collect data from a gas sensor (ideally the one created at AIME but we only tested with a groove MQ9 gas sensor) and send these data to the LoRa TTN gateway on the INSA’s rooftop. On the following figure, you can find a picture of our prototype:
-
-![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_Wiring.jpg "JLTT_Wiring")
 
 ### Dashboard
 
