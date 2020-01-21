@@ -1,0 +1,45 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# RN2483
+#
+DEF RN2483 R 0 40 Y Y 1 F N
+F0 "R" -250 350 50 H V C CNN
+F1 "RN2483" 250 100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S 800 -250 -300 300 0 1 0 f
+X TX 1 -200 -350 100 U 50 50 1 1 O
+X RX 2 -50 -350 100 U 50 50 1 1 I
+X CTS 3 100 -350 100 U 50 50 1 1 P
+X RTS 4 250 -350 100 U 50 50 1 1 P
+X 3V3 5 400 -350 100 U 50 50 1 1 W
+X Vin 7 550 -350 100 U 50 50 1 1 W
+X Gnd 8 700 -350 100 U 50 50 1 1 W
+ENDDRAW
+ENDDEF
+#
+# capteur_gaz_aime
+#
+DEF capteur_gaz_aime S 0 40 Y Y 1 F N
+F0 "S" 350 -500 50 H V C CNN
+F1 "capteur_gaz_aime" -300 -500 50 H V C CNN
+F2 "Package_TO_SOT_THT:TO-5-10_Window" -500 200 50 H I C CNN
+F3 "" -500 200 50 H I C CNN
+DRAW
+S 750 350 -750 -600 0 1 0 f
+X TempSensor 1 -850 250 100 R 50 50 1 1 P
+X GND 10 850 -350 100 L 50 50 1 1 W
+X GasSensorLeft 2 -850 0 100 R 50 50 1 1 P
+X HeaterResistor 3 850 250 100 L 50 50 1 1 P
+X GasSensorLeft 4 -850 -100 100 R 50 50 1 1 P
+X GND 5 850 -250 100 L 50 50 1 1 W
+X TempSensor 6 -850 150 100 R 50 50 1 1 P
+X GasSensorRight 7 850 0 100 L 50 50 1 1 P
+X HeaterResistor 8 850 150 100 L 50 50 1 1 P
+X GasSensorRight 9 850 -100 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library
