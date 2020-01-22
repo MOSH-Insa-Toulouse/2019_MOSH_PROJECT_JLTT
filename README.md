@@ -53,9 +53,9 @@ In this repository, you can find KiCad files of our project. We designed an Ardu
 
 After the schematics design, we exported the net file and realized the PCB routing that you can find with the following figures:
 
-![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_PCB_Routing_1.PNG "JLTT_PCB_Routing_1")
+![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/Screen_Kicad_final.PNG "JLTT_PCB_Routing_1")
 
-![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/JLTT_PCB_Routing_2.PNG "JLTT_PCB_Routing_2")
+![alt text](https://raw.githubusercontent.com/MOSH-Insa-Toulouse/2019_MOSH_PROJECT_JLTT/master/Screens/Screen_Kicad_final_2.PNG "JLTT_PCB_Routing_2")
 
 Finally, we exported a 3d representation of our shield thanks to KiCad:
 
