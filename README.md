@@ -65,6 +65,6 @@ Finally, we exported a 3d representation of our shield thanks to KiCad:
 
 During this whole module, we were able to realize an electronic product from scratch. Indeed, from the sensor creation to the shield design and software programming, we had to mobilize several skills. Our team was composed of people with different background. That point helped us to dispatch the tasks and learn from the other experience.
 
-To improve our project, we could for example design a PCB of a smaller size by using SMA instead of through-hole ones. Also, our PCB is only composed of the sensing and acting part of the device, a great think can be to integrate directly a micro-controller like an atmega328p in our PCB. The question of the battery and energy harvesting can be also asked and finally, we can as dashboard a different technology instead of Node-Red which is quite limiting.
+To improve our project, we could for example design a PCB of a smaller size by using SMD instead of through-hole ones. Also, our PCB is only composed of the sensing and acting part of the device, a great think can be to integrate directly a micro-controller like an atmega328p in our PCB. The question of the battery and energy harvesting can be also asked and finally, we can use, to develop the dashboard, a different technology instead of Node-Red which is quite limiting.
 
 To conclude, the whole process of sensor creation at the AIME, the PCB design with KiCad and the building of smart device during the MOSH module was a really interesting project related to IOT.
